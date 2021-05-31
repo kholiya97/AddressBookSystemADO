@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Address_Book_System_ADO
 {
-   
     class Program
     {
         static void Main(string[] args)
@@ -17,7 +16,8 @@ namespace Address_Book_System_ADO
 
             //addressBookManagement.DataBaseConnection(); //UC1
             //addressBookManagement.GetAllContact(); //UC2
-            AddNewContactDetails(); //UC3
+            //AddNewContactDetails(); //UC3
+            Console.WriteLine(addressBookManagement.EditContactUsingName("442207", "Himanshu", "Kholiya") ? "Update Record successfully\n" : "Update failed"); //UC4
 
             Console.ReadLine();
         }
@@ -26,14 +26,14 @@ namespace Address_Book_System_ADO
         {
             AddressBookManagement repository = new AddressBookManagement();
             AddressBookModel model = new AddressBookModel();
-            model.FirstName = "Kartik";
-            model.LastName = "singh";
-            model.Address = "Mumbai";
+            model.FirstName = "Vishal";
+            model.LastName = "Singh";
+            model.Address = "Bhandup";
             model.City = "Mumbai";
             model.State = "Maharashtra";
-            model.Zip = "412104";
-            model.PhoneNumber = "2635145678";
-            model.EmailId = "himanshu@gmail.com";
+            model.Zip = "412105";
+            model.PhoneNumber = "66663629";
+            model.EmailId = "vishal@gmail.com";
             model.AddressBookType = "Friend";
             model.AddressBookName = "Himanshu";
 
