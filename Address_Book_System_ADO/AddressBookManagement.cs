@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -7,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace Address_Book_System_ADO
 {
-        public class AddressBookManagement
-        {
-            //UC1:- Address Book ServiceDB
+    public class AddressBookManagement
+    {
+        //UC1:- Address Book ServiceDB
 
-            public static string connectionString = @"Data Source=LAPTOP-BM4J1NMI;Initial Catalog=AddressBookSystem;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; //Specifying the connection string from the sql server connection.
+        public static string connectionString = @"Data Source=LAPTOP-BM4J1NMI;Initial Catalog=AddressBookSystem;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; //Specifying the connection string from the sql server connection.
 
-            SqlConnection connection = new SqlConnection(connectionString); // Establishing the connection using the Sqlconnection.  
+        SqlConnection connection = new SqlConnection(connectionString); // Establishing the connection using the Sqlconnection.  
 
-            public void DataBaseConnection()
+        public void DataBaseConnection()
         {
             try
             {
-               
+
                 connection.Open(); // open connection
                 using (connection)  //using SqlConnection
                 {
@@ -36,7 +37,7 @@ namespace Address_Book_System_ADO
         }
 
         // UC2:- Ability to create a Address Book Table with first and last names, address, city, state, zip, phone number and email as its attributes 
-        
+
 
         public void GetAllContact()
         {
@@ -63,8 +64,8 @@ namespace Address_Book_System_ADO
                             model.Address = reader.GetString(2);
                             model.City = reader.GetString(3);
                             model.State = reader.GetString(4);
-                            model.Zip = reader.GetInt32(5);
-                            model.PhoneNumber = reader.GetInt32(6);
+                            model.Zip = reader.GetString(5);
+                            model.PhoneNumber = reader.GetString(6);
                             model.EmailId = reader.GetString(7);
                             model.AddressBookType = reader.GetString(8);
                             model.AddressBookName = reader.GetString(9);
@@ -91,6 +92,48 @@ namespace Address_Book_System_ADO
                 connection.Close(); // Always ensuring the closing of the connection
             }
 
+        }
+        // UC3:- Ability to insert new Contacts to Address Book 
+
+
+        public bool AddDataToTable(AddressBookModel model)
+        {
+            try
+            {
+                using (connection) // Using the connection established
+                {
+                    SqlCommand command = new SqlCommand("dbo.AddressBookSystemProcedure", connection); // Implementing the stored procedure
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@City", model.City);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@Zip", model.Zip);
+                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@EmailID", model.EmailId);
+                    command.Parameters.AddWithValue("@addressBookType", model.AddressBookType);
+                    command.Parameters.AddWithValue("@addressBookName", model.AddressBookName);
+
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    connection.Close();
+
+                    if (result != 0)  //Return the result of the transaction 
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
