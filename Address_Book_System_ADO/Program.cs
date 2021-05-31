@@ -14,6 +14,7 @@ namespace Address_Book_System_ADO
 
             AddressBookManagement addressBookManagement = new AddressBookManagement();
             Console.WriteLine(addressBookManagement.DeleteContactUsingName("Himanshu", "kholiya") ? "Delete Record successfully\n" : "Delete failed"); //UC5
+            addressBookManagement.RetrieveContactFromCityOrStateName(); //UC6
             Console.ReadLine();
         }
     
@@ -22,14 +23,14 @@ namespace Address_Book_System_ADO
         {
             AddressBookManagement repository = new AddressBookManagement();
             AddressBookModel model = new AddressBookModel();
-            model.FirstName = "Vishal";
+            model.FirstName = "Kartik";
             model.LastName = "Singh";
             model.Address = "Bhandup";
             model.City = "Mumbai";
             model.State = "Maharashtra";
             model.Zip = "412105";
             model.PhoneNumber = "66663629";
-            model.EmailId = "vishal@gmail.com";
+            model.EmailId = "kartik@gmail.com";
             model.AddressBookType = "Friend";
             model.AddressBookName = "Himanshu";
 
