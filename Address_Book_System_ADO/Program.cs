@@ -15,6 +15,7 @@ namespace Address_Book_System_ADO
             AddressBookManagement addressBookManagement = new AddressBookManagement();
             Console.WriteLine(addressBookManagement.DeleteContactUsingName("Himanshu", "kholiya") ? "Delete Record successfully\n" : "Delete failed"); //UC5
             addressBookManagement.RetrieveContactFromCityOrStateName(); //UC6
+            addressBookManagement.CountByCityOrState(); //UC7
             Console.ReadLine();
         }
     
