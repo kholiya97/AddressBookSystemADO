@@ -13,14 +13,10 @@ namespace Address_Book_System_ADO
             Console.WriteLine("Welcome Address Book System ADO.NET");
 
             AddressBookManagement addressBookManagement = new AddressBookManagement();
-
-            //addressBookManagement.DataBaseConnection(); //UC1
-            //addressBookManagement.GetAllContact(); //UC2
-            //AddNewContactDetails(); //UC3
-            Console.WriteLine(addressBookManagement.EditContactUsingName("442207", "Himanshu", "Kholiya") ? "Update Record successfully\n" : "Update failed"); //UC4
-
+            Console.WriteLine(addressBookManagement.DeleteContactUsingName("Himanshu", "kholiya") ? "Delete Record successfully\n" : "Delete failed"); //UC5
             Console.ReadLine();
         }
+    
         // UC3:- Ability to insert new Contacts to Address Book 
         public static void AddNewContactDetails()
         {
